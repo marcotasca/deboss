@@ -8,6 +8,7 @@ import com.bsf.deboss.api.dto.product.UserProductViewDto;
 import com.bsf.deboss.api.dto.searchproduct.SearchProductDto;
 import com.bsf.deboss.api.dto.searchproduct.SearchProductRequestParameterDto;
 import com.bsf.deboss.api.dto.user.UserFollowerFollowingDto;
+import com.bsf.deboss.api.dto.user.UserFollowerFollowingRequestParameterDto;
 import com.bsf.deboss.api.service.queryparameter.QueryParameterApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -52,7 +53,7 @@ public class DepopWebApiServiceImpl implements DepopWebApiService {
                 .get()
                 .uri(
                         endpointConfig.getVersionTwo().getSearchProducts(),
-                        uri -> queryParameterApiService.createSearchQueryParametersForProducts(uri, search).build()
+                        uriBuilder -> queryParameterApiService.createSearchQueryParametersForProducts(uriBuilder, search).build()
                 )
                 .retrieve()
                 .bodyToFlux(SearchProductDto.class);
@@ -119,19 +120,25 @@ public class DepopWebApiServiceImpl implements DepopWebApiService {
     }
 
     @Override
-    public Mono<UserFollowerFollowingDto> getUserFollower(Long userId) {
+    public Mono<UserFollowerFollowingDto> getUserFollower(Long userId, UserFollowerFollowingRequestParameterDto search) {
         return webClient
                 .get()
-                .uri(endpointConfig.getVersionOne().getUserFollower(userId))
+                .uri(
+                        endpointConfig.getVersionOne().getUserFollower(userId),
+                        uriBuilder -> queryParameterApiService.createSearchQueryParametersForUserFollowerFollowing(uriBuilder, search).build()
+                )
                 .retrieve()
                 .bodyToMono(UserFollowerFollowingDto.class);
     }
 
     @Override
-    public Mono<UserFollowerFollowingDto> getUserFollowing(Long userId) {
+    public Mono<UserFollowerFollowingDto> getUserFollowing(Long userId, UserFollowerFollowingRequestParameterDto search) {
         return webClient
                 .get()
-                .uri(endpointConfig.getVersionOne().getUserFollowing(userId))
+                .uri(
+                        endpointConfig.getVersionOne().getUserFollowing(userId),
+                        uriBuilder -> queryParameterApiService.createSearchQueryParametersForUserFollowerFollowing(uriBuilder, search).build()
+                )
                 .retrieve()
                 .bodyToMono(UserFollowerFollowingDto.class);
     }

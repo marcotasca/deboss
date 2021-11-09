@@ -7,6 +7,7 @@ import com.bsf.deboss.api.dto.product.UserProductViewDto;
 import com.bsf.deboss.api.dto.searchproduct.SearchProductDto;
 import com.bsf.deboss.api.dto.searchproduct.SearchProductRequestParameterDto;
 import com.bsf.deboss.api.dto.user.UserFollowerFollowingDto;
+import com.bsf.deboss.api.dto.user.UserFollowerFollowingRequestParameterDto;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -19,6 +20,6 @@ public interface DepopWebApiService {
     Mono<Void> unfollowUser(String bearerToken, Long userId);
     Mono<Void> likeProduct(String bearerToken, Long productId);
     Mono<Void> unlikeProduct(String bearerToken, Long productId);
-    Mono<UserFollowerFollowingDto> getUserFollower(Long userId);
-    Mono<UserFollowerFollowingDto> getUserFollowing(Long userId);
+    Mono<UserFollowerFollowingDto> getUserFollower(Long userId, UserFollowerFollowingRequestParameterDto search);
+    Mono<UserFollowerFollowingDto> getUserFollowing(Long userId, UserFollowerFollowingRequestParameterDto search);
 }
