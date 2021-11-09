@@ -3,6 +3,7 @@ package com.bsf.deboss;
 import com.bsf.deboss.api.DepopWebApiService;
 import com.bsf.deboss.api.DepopWebApiServiceImpl;
 import com.bsf.deboss.api.dto.login.LoginDto;
+import com.bsf.deboss.api.dto.searchproduct.SearchProductRequestParameterDto;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,10 +31,14 @@ public class DebossApplication implements CommandLineRunner {
         String password = System.getenv("auth.password");
         LoginDto login = new LoginDto(username, password);
 
-        depopWebApiService
-                .getUserFollowing(240023L)
-                .log()
-                .subscribe();
+        SearchProductRequestParameterDto searchProduct = new SearchProductRequestParameterDto();
+        searchProduct.setWhat("Jordan 1 Mocha");
+        depopWebApiService.searchProducts(searchProduct).log().subscribe();
+
+//        depopWebApiService
+//                .getUserFollowing(240023L)
+//                .log()
+//                .subscribe();
 
 
 //        depopWebApiService

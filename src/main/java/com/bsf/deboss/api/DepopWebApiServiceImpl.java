@@ -6,7 +6,9 @@ import com.bsf.deboss.api.dto.login.LoginDto;
 import com.bsf.deboss.api.dto.login.TokenDto;
 import com.bsf.deboss.api.dto.product.UserProductViewDto;
 import com.bsf.deboss.api.dto.searchproduct.SearchProductDto;
+import com.bsf.deboss.api.dto.searchproduct.SearchProductRequestParameterDto;
 import com.bsf.deboss.api.dto.user.UserFollowerFollowingDto;
+import com.bsf.deboss.api.service.queryparameter.QueryParameterApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -21,6 +23,9 @@ public class DepopWebApiServiceImpl implements DepopWebApiService {
     private final WebClient webClient;
 
     private final EndpointConfig endpointConfig;
+
+    @Autowired
+    QueryParameterApiService queryParameterApiService;
 
     @Autowired
     public DepopWebApiServiceImpl(WebClient.Builder builder) {
@@ -42,10 +47,13 @@ public class DepopWebApiServiceImpl implements DepopWebApiService {
     }
 
     @Override
-    public Flux<SearchProductDto> searchProducts() {
+    public Flux<SearchProductDto> searchProducts(SearchProductRequestParameterDto search) {
         return webClient
                 .get()
-                .uri(endpointConfig.getVersionTwo().getSearchProducts())
+                .uri(
+                        endpointConfig.getVersionTwo().getSearchProducts(),
+                        uri -> queryParameterApiService.createSearchQueryParametersForProducts(uri, search).build()
+                )
                 .retrieve()
                 .bodyToFlux(SearchProductDto.class);
     }
