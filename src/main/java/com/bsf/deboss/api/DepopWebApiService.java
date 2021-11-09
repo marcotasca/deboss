@@ -14,6 +14,7 @@ import reactor.core.publisher.Mono;
 public interface DepopWebApiService {
     Mono<TokenDto> login(LoginDto loginDto);
     Flux<SearchProductDto> searchProducts(SearchProductRequestParameterDto search);
+    Flux<SearchProductDto> searchProducts();
     Mono<UserProductViewDto> getProductByName(String bearerToken, String productName);
     Mono<FollowRelationship> getMyRelationshipWithUser(String bearerToken, Long contactId);
     Mono<Void> followUser(String bearerToken, Long userId);
@@ -21,5 +22,7 @@ public interface DepopWebApiService {
     Mono<Void> likeProduct(String bearerToken, Long productId);
     Mono<Void> unlikeProduct(String bearerToken, Long productId);
     Mono<UserFollowerFollowingDto> getUserFollower(Long userId, UserFollowerFollowingRequestParameterDto search);
+    Mono<UserFollowerFollowingDto> getUserFollower(Long userId);
     Mono<UserFollowerFollowingDto> getUserFollowing(Long userId, UserFollowerFollowingRequestParameterDto search);
+    Mono<UserFollowerFollowingDto> getUserFollowing(Long userId);
 }

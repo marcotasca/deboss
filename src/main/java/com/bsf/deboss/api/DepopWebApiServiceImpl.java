@@ -60,6 +60,11 @@ public class DepopWebApiServiceImpl implements DepopWebApiService {
     }
 
     @Override
+    public Flux<SearchProductDto> searchProducts() {
+        return searchProducts(null);
+    }
+
+    @Override
     public Mono<UserProductViewDto> getProductByName(String bearerToken, String productName) {
         return webClient
                 .get()
@@ -132,6 +137,11 @@ public class DepopWebApiServiceImpl implements DepopWebApiService {
     }
 
     @Override
+    public Mono<UserFollowerFollowingDto> getUserFollower(Long userId) {
+        return getUserFollower(userId, null);
+    }
+
+    @Override
     public Mono<UserFollowerFollowingDto> getUserFollowing(Long userId, UserFollowerFollowingRequestParameterDto search) {
         return webClient
                 .get()
@@ -141,6 +151,11 @@ public class DepopWebApiServiceImpl implements DepopWebApiService {
                 )
                 .retrieve()
                 .bodyToMono(UserFollowerFollowingDto.class);
+    }
+
+    @Override
+    public Mono<UserFollowerFollowingDto> getUserFollowing(Long userId) {
+        return getUserFollowing(userId);
     }
 
 }
