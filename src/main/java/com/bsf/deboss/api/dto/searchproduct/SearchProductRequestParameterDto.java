@@ -6,7 +6,8 @@ public class SearchProductRequestParameterDto {
         WHAT("what"),
         ITEMS_PER_PAGE("items_per_page"),
         COUNTRY("country"),
-        CURRENCY("currency");
+        CURRENCY("currency"),
+        CURSOR("cursor");
 
         private String placeholder;
         Placeholder(String placeholder) {
@@ -21,6 +22,7 @@ public class SearchProductRequestParameterDto {
     private Integer itemsPerPage;
     private String country;
     private String currency;
+    private String cursor;
 
     public SearchProductRequestParameterDto() {
     }
@@ -55,5 +57,13 @@ public class SearchProductRequestParameterDto {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public String getCursor() {
+        return cursor;
+    }
+
+    public void setCursor(String cursor) {
+        this.cursor = cursor;
     }
 }

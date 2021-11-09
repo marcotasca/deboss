@@ -14,6 +14,7 @@ public class QueryParameterApiServiceImpl implements QueryParameterApiService {
         if(search.getCountry() != null) uriBuilder.queryParam(SearchProductRequestParameterDto.Placeholder.COUNTRY.getPlaceholder(), search.getCountry());
         if(search.getCurrency() != null) uriBuilder.queryParam(SearchProductRequestParameterDto.Placeholder.CURRENCY.getPlaceholder(), search.getCurrency());
         if(search.getItemsPerPage() != null) uriBuilder.queryParam(SearchProductRequestParameterDto.Placeholder.ITEMS_PER_PAGE.getPlaceholder(), search.getItemsPerPage());
+        if(search.getCursor() != null) uriBuilder.queryParam(SearchProductRequestParameterDto.Placeholder.CURSOR.getPlaceholder(), search.getCursor());
         return uriBuilder;
     }
 
