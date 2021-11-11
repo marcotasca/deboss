@@ -22,6 +22,10 @@ public class DebossApplication implements CommandLineRunner {
 
     Logger log = LoggerFactory.getLogger(DebossApplication.class);
 
+    public void banana() {
+        System.out.println("banana");
+    }
+
     @Override
     public void run(String... args) throws Exception {
         log.info("Init Deboss");
@@ -30,10 +34,9 @@ public class DebossApplication implements CommandLineRunner {
         String password = System.getenv("auth.password");
         LoginDto login = new LoginDto(username, password);
 
-        // TODO: non usare subscribe, perché la connessione si chiude
         SearchProductRequestParameterDto searchProduct = new SearchProductRequestParameterDto();
         searchProduct.setWhat("Jordan 1 Mocha");
-        depopWebApiService.searchProducts(searchProduct).doOnNext(searchProductDto -> searchProductDto.getProducts());
+        depopWebApiService.searchProducts(searchProduct);
 
 //        depopWebApiService
 //                .getUserFollowing(240023L)

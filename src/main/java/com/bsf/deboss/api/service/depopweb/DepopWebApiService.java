@@ -11,17 +11,17 @@ import com.bsf.deboss.api.dto.user.UserFollowerFollowingRequestParameterDto;
 import reactor.core.publisher.Mono;
 
 public interface DepopWebApiService {
-    Mono<TokenDto> login(LoginDto loginDto);
-    Mono<SearchProductDto> searchProducts(SearchProductRequestParameterDto search);
-    Mono<SearchProductDto> searchProducts();
-    Mono<UserProductViewDto> getProductByName(String bearerToken, String productName);
-    Mono<FollowRelationship> getMyRelationshipWithUser(String bearerToken, Long contactId);
-    Mono<Void> followUser(String bearerToken, Long userId);
-    Mono<Void> unfollowUser(String bearerToken, Long userId);
-    Mono<Void> likeProduct(String bearerToken, Long productId);
-    Mono<Void> unlikeProduct(String bearerToken, Long productId);
-    Mono<UserFollowerFollowingDto> getUserFollower(Long userId, UserFollowerFollowingRequestParameterDto search);
-    Mono<UserFollowerFollowingDto> getUserFollower(Long userId);
-    Mono<UserFollowerFollowingDto> getUserFollowing(Long userId, UserFollowerFollowingRequestParameterDto search);
-    Mono<UserFollowerFollowingDto> getUserFollowing(Long userId);
+    TokenDto login(LoginDto loginDto);
+    SearchProductDto searchProducts(SearchProductRequestParameterDto search);
+    SearchProductDto searchProducts();
+    UserProductViewDto getProductByName(String bearerToken, String productName);
+    FollowRelationship getMyRelationshipWithUser(String bearerToken, Long contactId);
+    Void followUser(String bearerToken, Long userId);
+    Void unfollowUser(String bearerToken, Long userId);
+    Void likeProduct(String bearerToken, Long productId);
+    Void unlikeProduct(String bearerToken, Long productId);
+    UserFollowerFollowingDto getUserFollower(Long userId, UserFollowerFollowingRequestParameterDto search);
+    UserFollowerFollowingDto getUserFollower(Long userId);
+    UserFollowerFollowingDto getUserFollowing(Long userId, UserFollowerFollowingRequestParameterDto search);
+    UserFollowerFollowingDto getUserFollowing(Long userId);
 }
