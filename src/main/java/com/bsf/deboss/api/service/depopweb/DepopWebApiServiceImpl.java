@@ -1,4 +1,4 @@
-package com.bsf.deboss.api;
+package com.bsf.deboss.api.service.depopweb;
 
 import com.bsf.deboss.api.config.EndpointConfig;
 import com.bsf.deboss.api.dto.follow.FollowRelationship;
@@ -15,7 +15,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 @Service
@@ -48,7 +47,7 @@ public class DepopWebApiServiceImpl implements DepopWebApiService {
     }
 
     @Override
-    public Flux<SearchProductDto> searchProducts(SearchProductRequestParameterDto search) {
+    public Mono<SearchProductDto> searchProducts(SearchProductRequestParameterDto search) {
         return webClient
                 .get()
                 .uri(
@@ -56,11 +55,11 @@ public class DepopWebApiServiceImpl implements DepopWebApiService {
                         uriBuilder -> queryParameterApiService.createSearchQueryParametersForProducts(uriBuilder, search).build()
                 )
                 .retrieve()
-                .bodyToFlux(SearchProductDto.class);
+                .bodyToMono(SearchProductDto.class);
     }
 
     @Override
-    public Flux<SearchProductDto> searchProducts() {
+    public Mono<SearchProductDto> searchProducts() {
         return searchProducts(null);
     }
 

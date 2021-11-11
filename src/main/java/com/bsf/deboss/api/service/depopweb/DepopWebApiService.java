@@ -1,4 +1,4 @@
-package com.bsf.deboss.api;
+package com.bsf.deboss.api.service.depopweb;
 
 import com.bsf.deboss.api.dto.follow.FollowRelationship;
 import com.bsf.deboss.api.dto.login.LoginDto;
@@ -8,13 +8,12 @@ import com.bsf.deboss.api.dto.searchproduct.SearchProductDto;
 import com.bsf.deboss.api.dto.searchproduct.SearchProductRequestParameterDto;
 import com.bsf.deboss.api.dto.user.UserFollowerFollowingDto;
 import com.bsf.deboss.api.dto.user.UserFollowerFollowingRequestParameterDto;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 public interface DepopWebApiService {
     Mono<TokenDto> login(LoginDto loginDto);
-    Flux<SearchProductDto> searchProducts(SearchProductRequestParameterDto search);
-    Flux<SearchProductDto> searchProducts();
+    Mono<SearchProductDto> searchProducts(SearchProductRequestParameterDto search);
+    Mono<SearchProductDto> searchProducts();
     Mono<UserProductViewDto> getProductByName(String bearerToken, String productName);
     Mono<FollowRelationship> getMyRelationshipWithUser(String bearerToken, Long contactId);
     Mono<Void> followUser(String bearerToken, Long userId);

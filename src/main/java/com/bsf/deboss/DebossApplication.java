@@ -1,7 +1,6 @@
 package com.bsf.deboss;
 
-import com.bsf.deboss.api.DepopWebApiService;
-import com.bsf.deboss.api.DepopWebApiServiceImpl;
+import com.bsf.deboss.api.service.depopweb.DepopWebApiService;
 import com.bsf.deboss.api.dto.login.LoginDto;
 import com.bsf.deboss.api.dto.searchproduct.SearchProductRequestParameterDto;
 import org.slf4j.Logger;
@@ -31,9 +30,10 @@ public class DebossApplication implements CommandLineRunner {
         String password = System.getenv("auth.password");
         LoginDto login = new LoginDto(username, password);
 
+        // TODO: non usare subscribe, perché la connessione si chiude
         SearchProductRequestParameterDto searchProduct = new SearchProductRequestParameterDto();
         searchProduct.setWhat("Jordan 1 Mocha");
-        depopWebApiService.searchProducts(searchProduct).log().subscribe();
+        depopWebApiService.searchProducts(searchProduct).doOnNext(searchProductDto -> searchProductDto.getProducts());
 
 //        depopWebApiService
 //                .getUserFollowing(240023L)
