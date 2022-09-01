@@ -1,35 +1,37 @@
 package com.bsf.deboss.api.dto.product;
 
+import java.util.List;
+
 public class UserProductViewVideoDto {
-    private UserProductViewVideoSourceDto sources;
-    private UserProductViewVideoThumbnailDto thumbnails;
+    private List<UserProductViewVideoSourceDto> sources;
+    private List<UserProductViewVideoThumbnailDto> thumbnails;
 
     public UserProductViewVideoDto() {}
 
-    public UserProductViewVideoDto(UserProductViewVideoSourceDto sources, UserProductViewVideoThumbnailDto thumbnails) {
+    public UserProductViewVideoDto(List<UserProductViewVideoSourceDto> sources, List<UserProductViewVideoThumbnailDto> thumbnails) {
         this.sources = sources;
         this.thumbnails = thumbnails;
     }
 
-    public UserProductViewVideoSourceDto getSources() {
+    public List<UserProductViewVideoSourceDto> getSources() {
         return sources;
     }
 
-    public void setSources(UserProductViewVideoSourceDto sources) {
+    public void setSources(List<UserProductViewVideoSourceDto> sources) {
         this.sources = sources;
     }
 
-    public UserProductViewVideoThumbnailDto getThumbnails() {
+    public List<UserProductViewVideoThumbnailDto> getThumbnails() {
         return thumbnails;
     }
 
-    public void setThumbnails(UserProductViewVideoThumbnailDto thumbnails) {
+    public void setThumbnails(List<UserProductViewVideoThumbnailDto> thumbnails) {
         this.thumbnails = thumbnails;
     }
 
     @Override
     public String toString() {
-        return "UserProductViewVideo{" +
+        return "UserProductViewVideoDto{" +
                 "sources=" + sources +
                 ", thumbnails=" + thumbnails +
                 '}';

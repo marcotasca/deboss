@@ -8,11 +8,11 @@ public enum ProductStatusEnum {
     DELETED_PURCHASED("DELETED_PURCHASED"),
     DELETED_MARKED_AS_SOLD("DELETED_MARKED_AS_SOLD");
 
-    private String productStatus;
+    private final String productStatus;
     ProductStatusEnum(String productStatus) {
         this.productStatus = productStatus;
     }
     public String getStatus() {
-        return this.getStatus();
+        return this.productStatus;
     }
 }

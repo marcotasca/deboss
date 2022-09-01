@@ -8,8 +8,8 @@ public class FollowRelationship {
     }
 
     public FollowRelationship(boolean isFollowedBy, boolean isFollowing) {
-        this.isFollowedBy = isFollowedBy;
-        this.isFollowing = isFollowing;
+        setFollowedBy(isFollowedBy);
+        setFollowing(isFollowing);
     }
 
     public boolean isFollowedBy() {
@@ -31,8 +31,8 @@ public class FollowRelationship {
     @Override
     public String toString() {
         return "FollowRelationship{" +
-                "isFollowedBy=" + isFollowedBy +
-                ", isFollowing=" + isFollowing +
+                "isFollowedBy=" + isFollowedBy() +
+                ", isFollowing=" + isFollowing() +
                 '}';
     }
 }

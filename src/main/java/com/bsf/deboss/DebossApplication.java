@@ -3,12 +3,20 @@ package com.bsf.deboss;
 import com.bsf.deboss.api.service.depopweb.DepopWebApiService;
 import com.bsf.deboss.api.dto.login.LoginDto;
 import com.bsf.deboss.api.dto.searchproduct.SearchProductRequestParameterDto;
+import com.bsf.deboss.bot.DebossBot;
+import com.bsf.deboss.bot.config.DebossConfiguration;
+import com.bsf.deboss.bot.service.deboss.DebossBotService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 @SpringBootApplication
 public class DebossApplication implements CommandLineRunner {
@@ -18,7 +26,7 @@ public class DebossApplication implements CommandLineRunner {
     }
 
     @Autowired
-    DepopWebApiService depopWebApiService;
+    DebossBotService debossBotService;
 
     Logger log = LoggerFactory.getLogger(DebossApplication.class);
 
@@ -34,43 +42,20 @@ public class DebossApplication implements CommandLineRunner {
         String password = System.getenv("auth.password");
         LoginDto login = new LoginDto(username, password);
 
-        SearchProductRequestParameterDto searchProduct = new SearchProductRequestParameterDto();
-        searchProduct.setWhat("Jordan 1 Mocha");
-        depopWebApiService.searchProducts(searchProduct);
+        DebossConfiguration configuration = new DebossConfiguration();
+        configuration.getAuthConfiguration().setUsername(login.getUsername());
+        configuration.getAuthConfiguration().setPassword(login.getPassword());
 
-//        depopWebApiService
-//                .getUserFollowing(240023L)
-//                .log()
-//                .subscribe();
+        configuration.getBotConfiguration().setProductKeywords(Arrays.asList("Jordan 1 Mocha", "University"));
 
+        Thread thread = new Thread(() -> {
+            DebossBot debossBot = new DebossBot(configuration, debossBotService);
+            debossBot.init();
+        });
+        thread.start();
 
-//        depopWebApiService
-//                .init()
-//                .login(login)
-//                .onErrorReturn(new TokenDto())
-//                .filter(tokenDto -> tokenDto.getToken() != null)
-//                .subscribe(tokenDto -> {
-//
-//                    log.info("[AUTH::Login] -> Token generated -> {} ", tokenDto.getToken());
-//
-//                    depopWebApiService.searchProducts().subscribe(searchProductDto -> {
-//                        if(!searchProductDto.getProducts().isEmpty()) {
-//                            ProductDto productDto = searchProductDto.getProducts().get(0);
-//                            System.out.println(productDto);
-//                            depopWebApiService.getProductByName(tokenDto.getToken(), productDto.getSlug()).subscribe(userProductViewDto -> {
-//                                System.out.println(userProductViewDto);
-//                                depopWebApiService.getMyRelationshipWithUser(tokenDto.getToken(), userProductViewDto.getSeller().getId()).subscribe(followRelationship -> {
-//                                    System.out.println(followRelationship);
-//
-//                                    System.out.println("Follow");
-//                                    depopWebApiService.followUser(tokenDto.getToken(), userProductViewDto.getSeller().getId()).subscribe();
-//
-//
-//                                });
-//                            });
-//                        }
-//                    });
-//                });
+        System.out.println(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+
     }
 
 }
