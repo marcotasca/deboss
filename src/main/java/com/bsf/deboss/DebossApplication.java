@@ -20,20 +20,12 @@ import java.util.Arrays;
 
 @SpringBootApplication
 public class DebossApplication implements CommandLineRunner {
-
     public static void main(String[] args) {
         SpringApplication.run(DebossApplication.class, args);
     }
-
     @Autowired
     DebossBotService debossBotService;
-
     Logger log = LoggerFactory.getLogger(DebossApplication.class);
-
-    public void banana() {
-        System.out.println("banana");
-    }
-
     @Override
     public void run(String... args) throws Exception {
         log.info("Init Deboss");
